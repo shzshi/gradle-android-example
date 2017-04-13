@@ -2,7 +2,6 @@
  
 /**
         * Jenkinsfile for Jenkins2 Pipeline
-        * 
 */
  
 import hudson.model.*
@@ -37,12 +36,4 @@ node {
 
   stage 'Stage Upload To Fabric'
   sh "./gradlew crashlyticsUploadDistribution${flavor}Debug  -PBUILD_NUMBER=${env.BUILD_NUMBER}"
-}
-
-// Pulls the android flavor out of the branch name the branch is prepended with /QA_
-@NonCPS
-def flavor(branchName) {
-  def matcher = (env.BRANCH_NAME =~ /QA_([a-z_]+)/)
-  assert matcher.matches()
-  matcher[0][1]
 }
