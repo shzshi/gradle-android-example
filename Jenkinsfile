@@ -25,12 +25,12 @@ node {
   echo "My branch is: ${env.BRANCH_NAME}"
 
   //build your gradle flavor, passes the current build number as a parameter to gradle
-  sh "./gradlew clean build"
+  sh "gradle clean build"
 
   stage 'Stage Archive'
   //tell Jenkins to archive the apks
   archiveArtifacts artifacts: 'app/build/outputs/apk/*.apk', fingerprint: true
 
   stage 'Stage Upload To Fabric'
-  sh "./gradlew crashlyticsUploadDistribution${flavor}Debug  -PBUILD_NUMBER=${env.BUILD_NUMBER}"
+  sh "gradle crashlyticsUploadDistribution${flavor}Debug  -PBUILD_NUMBER=${env.BUILD_NUMBER}"
 }
